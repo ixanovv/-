@@ -14,6 +14,7 @@ lost = 0 #пропущено кораблей
 max_lost = 10 #проиграли, если пропустили столько кораблей
 life = 3  #очки жизни
 img_myach = "asteroid.png"
+img_platform = "platform.webp"
 run = True
 finish = False
 win_width = 700
@@ -45,8 +46,17 @@ class Player(GameSprite):
             self.rect.y -= self.speed
         if keys[K_s] and self.rect.y < win_width - 80:
             self.rect.y += self.speed
+        
+    def updates(self):
+        keys = key.get_pressed()
+        if keys[K_UP] and self.rect.y > 5:
+            self.rect.y -= self.speed
+        if keys[K_DOWN] and self.rect.y < 600:
+            self.rect.y += self.speed
 
 myach = Player(img_myach, 300, 330, 80, 50, 4)
+platform1 = Player(img_platform, 30, 200, 10, 120, 12)
+platform2 = Player(img_platform, 650, 200, 10, 120, 12)
 while run:
   #событие нажатия на кнопку “Закрыть”
   for e in event.get():
@@ -56,6 +66,10 @@ while run:
   if not finish:
     window.fill(img_back)
     myach.reset()
+    platform1.reset()
+    platform2.reset()
+    platform1.update()
+    platform2.updates()
     display.update()
 
   time.delay(50)
