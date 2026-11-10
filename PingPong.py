@@ -13,6 +13,7 @@ goal = 20 #столько кораблей нужно сбить для побе
 lost = 0 #пропущено кораблей
 max_lost = 10 #проиграли, если пропустили столько кораблей
 life = 3  #очки жизни
+img_myach = "asteroid.png"
 run = True
 finish = False
 win_width = 700
@@ -40,11 +41,12 @@ class Player(GameSprite):
   #метод для управления спрайтом стрелками клавиатуры
     def update(self):
         keys = key.get_pressed()
-        if keys[K_LEFT] and self.rect.x > 5:
-            self.rect.x -= self.speed
-        if keys[K_RIGHT] and self.rect.x < win_width - 80:
-            self.rect.x += self.speed
+        if keys[K_w] and self.rect.y > 5:
+            self.rect.y -= self.speed
+        if keys[K_s] and self.rect.y < win_width - 80:
+            self.rect.y += self.speed
 
+myach = Player(img_myach, 300, 330, 80, 50, 4)
 while run:
   #событие нажатия на кнопку “Закрыть”
   for e in event.get():
@@ -53,6 +55,7 @@ while run:
         
   if not finish:
     window.fill(img_back)
+    myach.reset()
     display.update()
 
   time.delay(50)
