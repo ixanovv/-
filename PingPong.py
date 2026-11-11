@@ -4,8 +4,8 @@ from time import time as timer #импортируем функцию для з�
 #подгружаем отдельно функции для работы со шрифтом
 font.init()
 font1 = font.SysFont(None, 80)
-win = font1.render('PLAYER 1 WIN', True, (255, 255, 255))
-lose = font1.render('PLAYER 2 WIN', True, (180, 0, 0))
+win1 = font1.render('PLAYER 2 WIN', True, (180, 0, 0))
+win2 = font1.render('PLAYER 1 WIN', True, (180, 0, 0))
 #нам нужны такие картинки:
 img_back =  (200,100,200)
 score = 0 #сбито кораблей
@@ -15,8 +15,8 @@ max_lost = 10 #проиграли, если пропустили столько 
 life = 3  #очки жизни
 img_myach = "asteroid.png"
 img_platform = "platform.webp"
-speed_x = 3
-speed_y = 3
+speed_x = 10
+speed_y = 10
 run = True
 finish = False
 win_width = 700
@@ -77,17 +77,21 @@ while run:
     if finish != True:
       myach.rect.x += speed_x
       myach.rect.y += speed_y
+      #1 победитель
     if myach.rect.x < 0:
       finish = True
-      window.blit(lose1, (200, 200))
+      window.blit(win1, (200, 200))
+      #2 победитель
+    elif myach.rect.x > 700:
+      finish = True
+      window.blit(win2, (200, 200))
     if sprite.collide_rect(platform1, myach) or sprite.collide_rect(platform2, myach):
-      speed_x *= -1
-    elif myach.rect.x > 675 or myach.rect.x < 15:
       speed_x *= -1
     elif myach.rect.y > 445 or myach.rect.y < 20:
       speed_y *= -1
 
+    display.update()
 
-
+  display.update()
 
   time.delay(50)
