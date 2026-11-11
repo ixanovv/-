@@ -15,6 +15,8 @@ max_lost = 10 #проиграли, если пропустили столько 
 life = 3  #очки жизни
 img_myach = "asteroid.png"
 img_platform = "platform.webp"
+speed_x = 3
+speed_y = 3
 run = True
 finish = False
 win_width = 700
@@ -71,5 +73,21 @@ while run:
     platform1.update()
     platform2.updates()
     display.update()
+      #...
+    if finish != True:
+      myach.rect.x += speed_x
+      myach.rect.y += speed_y
+    if myach.rect.x < 0:
+      finish = True
+      window.blit(lose1, (200, 200))
+    if sprite.collide_rect(platform1, myach) or sprite.collide_rect(platform2, myach):
+      speed_x *= -1
+    elif myach.rect.x > 675 or myach.rect.x < 15:
+      speed_x *= -1
+    elif myach.rect.y > 445 or myach.rect.y < 20:
+      speed_y *= -1
+
+
+
 
   time.delay(50)
